@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
+//@IdClass(SmartCardKey.class)
 @Table(schema = "easyfare",name = "smartcard_details")
 public class SmartCardEntity {
 
@@ -24,6 +26,7 @@ public class SmartCardEntity {
 	@SequenceGenerator(name = "cardid_generator",sequenceName = "easyfare.cardid_seq",allocationSize = 1)
 	@Column(name="cardid")
 	private int cardId;
+	//@Id
 	@Column(name="smart_card_num")
 	private String cardNum;
 	@JsonFormat(pattern="dd-MM-yyyy")

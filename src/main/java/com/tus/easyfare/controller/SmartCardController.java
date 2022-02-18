@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.tus.easyfare.entity.SmartCardEntity;
 import com.tus.easyfare.repository.CardRepository;
 
+
 public class SmartCardController {
 	
 	@Autowired
