@@ -47,7 +47,7 @@ public class UserController {
 		 return new ResponseEntity<List<UserEntity>>(ueList, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Optional<UserEntity>> getUserDetailsById(@PathVariable Integer id) {
 		Optional<UserEntity> userList=userRepo.findById(id);
 		 return new ResponseEntity<Optional<UserEntity>>(userList, HttpStatus.OK);
