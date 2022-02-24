@@ -16,9 +16,15 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 @Entity
 //@IdClass(SmartCardKey.class)
 @Table(schema = "easyfare",name = "smartcard_details")
+@Builder
+@AllArgsConstructor
 public class SmartCardEntity {
 
 	@Id
@@ -89,5 +95,12 @@ public class SmartCardEntity {
 	public void setCardStatus(String cardStatus) {
 		this.cardStatus = cardStatus;
 	}
+	@Override
+	public String toString() {
+		return "SmartCardEntity [cardId=" + cardId + ", cardNum=" + cardNum + ", dateOfReg=" + dateOfReg
+				+ ", dateOfExp=" + dateOfExp + ", balance=" + balance + ", cardStatus=" + cardStatus + "]";
+	}
+	
+	
 	
 }

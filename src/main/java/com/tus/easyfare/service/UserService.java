@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Calendar;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -49,6 +50,32 @@ public class UserService {
 		//cardEntity.setUserEntity(saveUser);
 		//cardRepository.save(cardEntity);
 		return new UserDTO(saveUser);
+	}
+	
+	public UserDTO updateUser(Optional<UserEntity> userList, UserDAO user) {
+		String ageGroup=FindAgeGroup(user.getDob());
+		UserEntity updateUser= userList.get();
+		updateUser.setFirstName(user.getFirstName());
+		updateUser.setSecondName(user.getSecondName());
+		updateUser.setDob((java.sql.Date) user.getDob());
+		updateUser.setMobNo(user.getMobNo());
+		System.out.println("age Group is :"+ageGroup);
+		updateUser.setAgeGroup(ageGroup);
+		updateUser.setEmailId(user.getEmailId());
+		System.out.println("Card Number is: "+user.getCardNumber());
+		LocalDate expDateLocal=user.getDateOfReg().toLocalDate().plusYears(2);
+		SmartCardEntity cardEntity = new SmartCardEntity();
+		cardEntity.setCardId(updateUser.getSmartCard().getCardId());
+		cardEntity.setBalance(user.getBalance());
+		cardEntity.setCardNum(user.getCardNumber());
+		cardEntity.setCardStatus(user.getCardStatus());
+		cardEntity.setDateOfReg(user.getDateOfReg());
+		cardEntity.setDateOfExp(Date.valueOf(expDateLocal));
+		updateUser.setSmartCard(cardEntity);
+		UserEntity savedUser=userRepo.save(updateUser);
+		//cardEntity.setUserEntity(saveUser);
+		//cardRepository.save(cardEntity);
+		return new UserDTO(savedUser);
 	}
 	
 	private String FindAgeGroup(Date dob) {
