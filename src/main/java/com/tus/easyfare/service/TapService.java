@@ -1,12 +1,11 @@
 package com.tus.easyfare.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.tus.easyfare.DAO.TapDAO;
 import com.tus.easyfare.DTO.PassengerDTO;
+import com.tus.easyfare.DTO.TapDTO;
 import com.tus.easyfare.entity.UserEntity;
 import com.tus.easyfare.repository.UserRepository;
 
@@ -27,7 +26,7 @@ public class TapService {
 		}
 	}
 	
-	public String tapUser(TapDAO tappedUser) {
+	public String tapUser(TapDTO tappedUser) {
 		UserEntity userDetails=userRepo.findById(tappedUser.getUserId()).get();
 		long availableBalance=userDetails.getSmartCard().getBalance();
 		PassengerDTO passObj= new PassengerDTO(tappedUser.getUserId(), tappedUser.getSourcePoint(), tappedUser.getRouteNumber(), tappedUser.getBusNumber(), availableBalance);

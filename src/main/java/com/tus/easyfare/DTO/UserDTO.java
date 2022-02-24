@@ -1,84 +1,33 @@
 package com.tus.easyfare.DTO;
 
-import java.util.Date;
+import java.sql.Date;
 
-import com.tus.easyfare.entity.UserEntity;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+//@AllArgsConstructor
 public class UserDTO {
-
-	private int userid;
+	
+	@NotBlank(message = "firstname is mandatory")
 	private String firstName;
 	private String secondName;
+	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date dob;
+	@Size(max = 10,min = 10, message = "mobile number must be 10 digits")
 	private String mobNo;
-	private String ageGroup;
+	@Email(message = "not a valid email id")
 	private String emailId;
-	
-	public int getUserid() {
-		return userid;
-	}
-	
-	public UserDTO() {
-		
-	}
-	
-	
-	public UserDTO(UserEntity user) {
-		super();
-		this.userid = user.getUserid();
-		this.firstName = user.getFirstName();
-		this.secondName = user.getSecondName();
-		this.dob = user.getDob();
-		this.mobNo = user.getMobNo();
-		this.ageGroup = user.getAgeGroup();
-		this.emailId=user.getEmailId();
-	}
-
-	
-	public String getEmailId() {
-		return emailId;
-	}
-
-
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
-
-
-	public void setUserid(int userid) {
-		this.userid = userid;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getSecondName() {
-		return secondName;
-	}
-	public void setSecondName(String secondName) {
-		this.secondName = secondName;
-	}
-	public Date getDob() {
-		return dob;
-	}
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-	public String getMobNo() {
-		return mobNo;
-	}
-	public void setMobNo(String mobNo) {
-		this.mobNo = mobNo;
-	}
-	public String getAgeGroup() {
-		return ageGroup;
-	}
-	public void setAgeGroup(String ageGroup) {
-		this.ageGroup = ageGroup;
-	}
-	
-	
-	
+	@Size(min = 14,max = 14,message = "not a valid card number")
+	private String cardNumber;
+	@JsonFormat(pattern="dd-MM-yyyy")
+	private Date dateOfReg;
+	private int balance;
+	private String cardStatus;	
 }

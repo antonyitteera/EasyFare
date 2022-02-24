@@ -7,15 +7,13 @@ import java.time.Period;
 import java.util.Calendar;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.tus.easyfare.DAO.UserDAO;
 import com.tus.easyfare.DTO.UserDTO;
+import com.tus.easyfare.DTO.UserTransferDTO;
 import com.tus.easyfare.entity.SmartCardEntity;
 import com.tus.easyfare.entity.UserEntity;
 import com.tus.easyfare.repository.CardRepository;
@@ -32,7 +30,7 @@ public class UserService {
 	CardRepository cardRepository;
 	
 	
-	public UserDTO insertUser(@RequestBody UserDAO user) {
+	public UserTransferDTO insertUser(@RequestBody UserDTO user) {
 		String ageGroup=FindAgeGroup(user.getDob());
 		UserEntity saveUser= new UserEntity();
 		saveUser.setFirstName(user.getFirstName());
@@ -49,10 +47,10 @@ public class UserService {
 		UserEntity savedUser=userRepo.save(saveUser);
 		//cardEntity.setUserEntity(saveUser);
 		//cardRepository.save(cardEntity);
-		return new UserDTO(saveUser);
+		return new UserTransferDTO(saveUser);
 	}
 	
-	public UserDTO updateUser(Optional<UserEntity> userList, UserDAO user) {
+	public UserTransferDTO updateUser(Optional<UserEntity> userList, UserDTO user) {
 		String ageGroup=FindAgeGroup(user.getDob());
 		UserEntity updateUser= userList.get();
 		updateUser.setFirstName(user.getFirstName());
@@ -75,7 +73,7 @@ public class UserService {
 		UserEntity savedUser=userRepo.save(updateUser);
 		//cardEntity.setUserEntity(saveUser);
 		//cardRepository.save(cardEntity);
-		return new UserDTO(savedUser);
+		return new UserTransferDTO(savedUser);
 	}
 	
 	private String FindAgeGroup(Date dob) {

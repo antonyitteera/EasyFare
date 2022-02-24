@@ -1,9 +1,9 @@
-package com.tus.easyfare.DAO;
+package com.tus.easyfare.DTO;
 
 import lombok.Data;
 
 @Data
-public class TapDAO {
+public class TapDTO {
 
 	private Integer userId;
 	private String sourcePoint;

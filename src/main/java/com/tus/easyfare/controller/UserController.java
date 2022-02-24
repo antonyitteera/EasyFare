@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tus.easyfare.DAO.UserDAO;
 import com.tus.easyfare.DTO.UserDTO;
+import com.tus.easyfare.DTO.UserTransferDTO;
 import com.tus.easyfare.entity.SmartCardEntity;
 import com.tus.easyfare.entity.UserEntity;
 import com.tus.easyfare.repository.CardRepository;
@@ -36,10 +36,9 @@ public class UserController {
 	
 	// to insert into user table
 	@RequestMapping(value = "/user",method = RequestMethod.POST)
-	public ResponseEntity<UserDTO> insertUser(@RequestBody @Valid UserDAO user)
-	{
-		UserDTO userDetails=userService.insertUser(user);
-		return new ResponseEntity<UserDTO>(userDetails, HttpStatus.CREATED);
+	public ResponseEntity<UserTransferDTO> insertUser(@RequestBody @Valid UserDTO user){
+		UserTransferDTO userDetails=userService.insertUser(user);
+		return new ResponseEntity<UserTransferDTO>(userDetails, HttpStatus.CREATED);
 	}
 	
 	//to fetch all the user
@@ -57,10 +56,10 @@ public class UserController {
 	}
 	//to update the user
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<UserDTO> updateUserDetailsById(@PathVariable Integer id,@RequestBody @Valid UserDAO user) {
+	public ResponseEntity<UserTransferDTO> updateUserDetailsById(@PathVariable Integer id,@RequestBody @Valid UserDTO user) {
 		Optional<UserEntity> userList=userRepo.findById(id);
-		UserDTO userDetails=userService.updateUser(userList,user);
-		 return new ResponseEntity<UserDTO>(userDetails, HttpStatus.OK);
+		UserTransferDTO userDetails=userService.updateUser(userList,user);
+		 return new ResponseEntity<UserTransferDTO>(userDetails, HttpStatus.OK);
 	}
 
 	//to delete the user

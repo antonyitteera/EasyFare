@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tus.easyfare.DAO.TapDAO;
+import com.tus.easyfare.DTO.ResponseDTO;
+import com.tus.easyfare.DTO.TapDTO;
 import com.tus.easyfare.service.TapService;
 
 @RestController
@@ -17,9 +18,10 @@ public class TapController {
 	TapService tapService;
 
 	@RequestMapping(value = "/tap",method = RequestMethod.POST)
-	public ResponseEntity<String> tapCard(@RequestBody TapDAO tappedUser) {
+	public ResponseEntity<ResponseDTO> tapCard(@RequestBody TapDTO tappedUser) {
 		Integer userId=tappedUser.getUserId();
 		System.out.println("UserId:"+userId);
+		ResponseDTO respObj;
 		String resp;
 		if(tapService.validateUserAndBalance(userId)) {
 			System.out.println("Validation successful");
@@ -27,6 +29,7 @@ public class TapController {
 		}else {
 			resp="User not authenticated to use bus service";
 		}
-		return new ResponseEntity<String>(resp, HttpStatus.OK);
+		respObj= new ResponseDTO(resp);
+		return new ResponseEntity<ResponseDTO>(respObj, HttpStatus.OK);
 	}
 }
